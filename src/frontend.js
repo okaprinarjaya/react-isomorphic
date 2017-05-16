@@ -2,7 +2,6 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext, createRoutes } from 'react-router';
 import appRoutes from './routes';
-import NotFoundPage from './components/NotFoundPage';
 
 import path from 'path';
 import express from 'express';
@@ -19,6 +18,15 @@ app.get('*', (request, response) => {
   match(
     { routes, location: request.url },
     (err, redirectLocation, renderProps) => {
+      
+      webpackIsomorphicTools.refresh();
+      
+      const {
+        javascript: {
+          ['judo-heroes']: appJsFilename
+        }
+      } = webpackIsomorphicTools.assets();
+
       if (err) {
         return response.status(500).send(err.message);
       }
@@ -28,15 +36,10 @@ app.get('*', (request, response) => {
       }
 
       // Generate the react markup for the current route
-      let markup;
-      if (renderProps) {
-        markup = renderToString(<RouterContext {...renderProps} />);
-      } else {
-        markup = renderToString(<NotFoundPage />);
-        response.status(400);
-      }
+      let markup = renderToString(<RouterContext {...renderProps} />);
+      let jsbundle = appJsFilename;
 
-      return response.render('index', { markup });
+      return response.render('index', { markup, jsbundle });
     }
   );
 });

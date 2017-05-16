@@ -1,16 +1,19 @@
-/*require('babel-register')({
-  presets: [ 'es2015', 'react', 'stage-2' ],
-  ignore: /\/(build|node_modules)\//
-});*/
+const express = require('express');
+const app = express();
 
-require('babel-register')({
-  ignore: /\/(build|node_modules)\//
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const compiler = webpack(require('../webpack.config'));
+
+app.use(webpackDevMiddleware(compiler, {
+  headers: {'Access-Control-Allow-Origin': '*'},
+  noInfo: true,
+  publicPath: 'http://localhost:3500/assets/static/'
+}));
+
+app.use(webpackHotMiddleware(compiler));
+
+app.listen(3500, () => {
+  console.log('Hot server started at port %d', 3500);
 });
-
-const WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-const rootDir = require('path').resolve(__dirname, '..');
-
-global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('./webpack-isomorphic-tools-options'))
-  .server(rootDir, () => {
-    require('./frontend');
-  })
