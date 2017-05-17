@@ -14,7 +14,7 @@ export default class Layout extends React.Component {
         <div className="app-content">{this.props.children}</div>
 
         <footer>
-          <p>This is a demo to showcase universal rendering and routing with <strong>React</strong> and <strong>Express</strong></p>
+          <p>This is a demo to showcase Awesome and universal rendering and routing with <strong>React</strong> and <strong>Express</strong></p>
         </footer>
       </div>
     );

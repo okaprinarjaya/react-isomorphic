@@ -9,11 +9,11 @@ const compiler = webpack(require('../webpack.config'));
 app.use(webpackDevMiddleware(compiler, {
   headers: {'Access-Control-Allow-Origin': '*'},
   noInfo: true,
-  publicPath: 'http://localhost:3500/assets/static/'
+  publicPath: 'http://localhost:8484/assets/static/'
 }));
 
 app.use(webpackHotMiddleware(compiler));
 
-app.listen(3500, () => {
-  console.log('Hot server started at port %d', 3500);
+app.listen(8484, () => {
+  console.log('Hot server started at port %d', 8484);
 });

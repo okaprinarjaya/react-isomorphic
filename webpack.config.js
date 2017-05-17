@@ -11,7 +11,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     ['judo-heroes']: [
-      'webpack-hot-middleware/client?path=http://localhost:3500/__webpack_hmr',
+      'webpack-hot-middleware/client?path=http://localhost:8484/__webpack_hmr',
       './app-client.js'
     ]
   },
@@ -19,7 +19,7 @@ module.exports = {
     path: BUILD_DIR,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: 'http://localhost:3500/assets/static/'
+    publicPath: 'http://localhost:8484/assets/static/'
   },
   module: {
     loaders: [
