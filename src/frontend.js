@@ -50,5 +50,5 @@ const env = process.env.NODE_ENV || 'production';
 app.listen(port, () => {
   const Console = require('console').Console;
   let startConsole = new Console(process.stdout, process.stderr);
-  startConsole.log('Server started at port %d', port);
+  startConsole.log('Render server started at port %d', port);
 });

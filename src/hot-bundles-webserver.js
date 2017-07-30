@@ -15,5 +15,5 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(webpackHotMiddleware(compiler));
 
 app.listen(8484, () => {
-  console.log('Hot server started at port %d', 8484);
+  console.log('Hot bundles server started at port %d', 8484);
 });

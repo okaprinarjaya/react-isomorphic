@@ -1,8 +1,3 @@
-/*require('babel-register')({
-  presets: [ 'es2015', 'react', 'stage-2' ],
-  ignore: /\/(build|node_modules)\//
-});*/
-
 require('babel-register')({
   ignore: /\/(build|node_modules)\//
 });
