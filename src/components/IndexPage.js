@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import AthletePreview from './AthletePreview';
-import athletes from '../data/athletes';
 
-export default class IndexPage extends React.Component {
+class IndexPage extends React.Component {
   render() {
+    const { athletes } = this.props;
     return (
       <div className="home">
         <div className="athletes-selector">
@@ -13,3 +14,9 @@ export default class IndexPage extends React.Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    athletes: state.athletes
+  })
+)(IndexPage);

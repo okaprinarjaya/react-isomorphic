@@ -19,7 +19,7 @@ module.exports = {
     path: BUILD_DIR,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: 'http://localhost:8484/assets/static/'
+    publicPath: 'http://localhost:8484/assets/'
   },
   module: {
     loaders: [
@@ -28,7 +28,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react', 'stage-2', 'react-hmre']
+          presets: ['react-app', 'react-hmre']
         }
       }
     ]

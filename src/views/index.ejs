@@ -8,6 +8,12 @@
   </head>
   <body>
     <div id="main"><%- markup -%></div>
+    <script type="text/javascript">
+      window.__INITIAL_STATE__ = {
+        athletes: <%- athletes -%>,
+        athleteDetail: <%- athleteDetail -%>
+      };
+    </script>
     <script src="<%- jsbundle -%>"></script>
   </body>
 </html>

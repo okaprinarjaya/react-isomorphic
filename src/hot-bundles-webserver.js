@@ -9,7 +9,7 @@ const compiler = webpack(require('../webpack.config'));
 app.use(webpackDevMiddleware(compiler, {
   headers: {'Access-Control-Allow-Origin': '*'},
   noInfo: true,
-  publicPath: 'http://localhost:8484/assets/static/'
+  publicPath: 'http://localhost:8484/assets/'
 }));
 
 app.use(webpackHotMiddleware(compiler));
