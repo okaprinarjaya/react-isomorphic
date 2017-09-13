@@ -1,51 +1,37 @@
-import fetch from 'isomorphic-fetch';
-
-export const fetchAllAthletes = () => {
-  return fetch('http://localhost:8080/data/athletes.json')
-    .then(resp => resp.json())
-};
+import { retrieveAllAthletes, retrieveSelectedAthlete } from "./commons";
 
 export const getAllAthletes = () => {
   return dispatch => {
     dispatch({type: 'GET_ALL_ATHLETES_LOADING'});
-    fetchAllAthletes()
+    retrieveAllAthletes()
       .then(athletes => {
         dispatch({
           type: 'GET_ALL_ATHLETES_SUCCESS',
           payload: athletes
-        })
-      }, err => {
+        });
+      }, error => {
         dispatch({
           type: 'GET_ALL_ATHLETES_ERROR',
-          payload: err
-        })
-      })
-  }
-};
-
-const fetchAthlete = (athleteId) => {
-  return fetch('http://localhost:8080/data/athletes.json')
-    .then(resp => resp.json())
-    .then(athletes => athletes.find((athlete) => athlete.id === athleteId))
+          payload: error
+        });
+      });
+  };
 };
 
 export const getAthlete = athleteId => {
-  return function (dispatch) {
-    dispatch({
-      type: 'GET_ATHLETE_LOADING'
-    });
-
-    fetchAthlete(athleteId)
-      .then(athletes => {
+  return dispatch => {
+    dispatch({type: 'GET_ATHLETE_LOADING'});
+    retrieveSelectedAthlete(athleteId)
+      .then(selectedAthlete => {
         dispatch({
           type: 'GET_ATHLETE_SUCCESS',
-          payload: athletes
+          payload: selectedAthlete
         })
-      }, err => {
+      }, error => {
         dispatch({
           type: 'GET_ATHLETE_ERROR',
-          payload: err
+          payload: error
         })
       })
-  }
+  };
 };

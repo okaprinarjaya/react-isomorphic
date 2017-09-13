@@ -2,13 +2,13 @@ import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {createRoutes, match, RouterContext} from 'react-router';
 import {Provider} from 'react-redux';
-import fetch from 'isomorphic-fetch';
 import path from 'path';
 import get from  'lodash/get';
 import express from 'express';
 
 import appRoutes from './routes';
 import {createNewStore} from './store';
+import { retrieveAllAthletes, retrieveSelectedAthlete } from "./commons";
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -16,29 +16,10 @@ app.set('views', path.join(__dirname, 'views'));
 
 const routes = createRoutes(appRoutes);
 
-const retrieveAllAthletes = async () => {
-  try {
-    const data = await fetch('http://localhost:8080/data/athletes.json');
-    const athletes = await data.json();
-    return athletes;
-  } catch (e) {
-    return new Error('Failed to fetch athletes');
-  }
-};
-
-const retrieveSelectedAthlete = async (id) => {
-  try {
-    const data = await fetch('http://localhost:8080/data/athletes.json');
-    const athletes = await data.json();
-    return athletes.find(athlete => athlete.id === id);
-  } catch (e) {
-    return new Error('Failed to fetch selected athlete');
-  }
-};
-
 const retrieveData = async (selectedAthlete) => {
   const athletes = await retrieveAllAthletes();
   let athleteDetail = {};
+
   if (selectedAthlete) {
     athleteDetail = await retrieveSelectedAthlete(selectedAthlete);
   }
@@ -80,7 +61,9 @@ const requestHandler = (request, response) => {
           athletes: JSON.stringify(athletes),
           athleteDetail: JSON.stringify(athleteDetail)
         });
-      });
+      }).catch((error) => {
+        console.log('Promise rejected: ' + error);
+      })
     }
   );
 };
